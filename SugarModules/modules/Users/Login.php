@@ -237,12 +237,16 @@ $google_signin_clientid = $sugar_config['google_signin_clientid'];
 
 echo $AAA = <<<EOQ
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script>
+	<style>
+	#user_name, #username_password, #bigbutton { display:none; }
+	</style>
+	<script>
         $(document).ready(function(){
 			var googleSignInClientId = '$google_signin_clientid';
 			if(googleSignInClientId != '') {
 				$('head').append('<meta name="google-signin-client_id" content="'+googleSignInClientId+'" />');
 				$('form').find('input[type="submit"]').after('<div>OR</div><div class="g-signin2" data-width="370" data-height="40" data-longtitle="true" data-onsuccess="onSignIn"></div>');
+				$('#bigbutton')[0].nextSibling.style.display='none';
 			}
         });
 		function onSignIn(googleUser) {
@@ -265,7 +269,6 @@ echo $AAA = <<<EOQ
 							window.location.href = result.message;
 						} else {
 							alert(result.message);
-							 location.reload(true);
 						}
 					});
 				}
