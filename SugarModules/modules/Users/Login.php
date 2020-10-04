@@ -212,17 +212,16 @@ if (
 
 		</tr>
 		<tr>
-
-		 	<td colspan='2'><div style='margin-left:2px'class='x-sqs-list' id='recaptcha_image'></div></td>
+			<td colspan='2'><div style='margin-left:2px'class='x-sqs-list' id='recaptcha_image'></div></td>
 		</tr>
 		<tr>
 			<td colspan='2' align='right'><a href='javascript:Recaptcha.reload()'>" .
-        $mod_strings['LBL_RECAPTCHA_NEW_CAPTCHA'] . "</a>&nbsp;&nbsp;
-			 		<a class='recaptcha_only_if_image' href='javascript:Recaptcha.switch_type(\"audio\")'>" .
-        $mod_strings['LBL_RECAPTCHA_SOUND'] . "</a>
-			 		<a class='recaptcha_only_if_audio' href='javascript:Recaptcha.switch_type(\"image\")'> " .
-        $mod_strings['LBL_RECAPTCHA_IMAGE'] . '</a>
-		 	</td>
+        		$mod_strings['LBL_RECAPTCHA_NEW_CAPTCHA'] . "</a>&nbsp;&nbsp;
+				<a class='recaptcha_only_if_image' href='javascript:Recaptcha.switch_type(\"audio\")'>" .
+        		$mod_strings['LBL_RECAPTCHA_SOUND'] . "</a>
+				<a class='recaptcha_only_if_audio' href='javascript:Recaptcha.switch_type(\"image\")'> " .
+        		$mod_strings['LBL_RECAPTCHA_IMAGE'] . '</a>
+			</td>
 		</tr>';
     $sugar_smarty->assign('CAPTCHA', $Captcha);
     echo $captcha_js;
@@ -241,15 +240,19 @@ echo $AAA = <<<EOQ
 	#user_name, #username_password, #bigbutton { display:none; }
 	</style>
 	<script>
+		var signInTimeout = 0;
         $(document).ready(function(){
 			var googleSignInClientId = '$google_signin_clientid';
 			if(googleSignInClientId != '') {
 				$('head').append('<meta name="google-signin-client_id" content="'+googleSignInClientId+'" />');
-				$('form').find('input[type="submit"]').after('<div>OR</div><div class="g-signin2" data-width="370" data-height="40" data-longtitle="true" data-onsuccess="onSignIn"></div>');
+				$('form').find('input[type="submit"]').after('<div>OR</div><div class="g-signin2" data-width="370" data-height="40" data-longtitle="true" data-onsuccess="onSignIn" data-onfailure="onSignInFail"></div>');
 				$('#bigbutton')[0].nextSibling.style.display='none';
+				document.querySelector('div.p_login_bottom').style.display='none';
+				signInTimeout = setTimeout(onSignInFail, 3000);
 			}
         });
 		function onSignIn(googleUser) {
+			clearTimeout(signInTimeout);
 			var profile = googleUser.getBasicProfile();
 			var id_token = googleUser.getAuthResponse().id_token;
 			$.ajax({
@@ -268,11 +271,14 @@ echo $AAA = <<<EOQ
 						if(result.code) {
 							window.location.href = result.message;
 						} else {
-							alert(result.message);
+							onSignInFail();
 						}
 					});
 				}
 			});
+		}
+		function onSignInFail() {
+			document.querySelector('div.g-signin2').style.display='block';
 		}
     </script>
 EOQ;
