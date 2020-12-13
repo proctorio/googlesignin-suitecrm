@@ -268,9 +268,21 @@ echo $AAA = <<<EOQ
 						data: { "user_email": data.email}
 					}).success(function(data){
 						var result = JSON.parse(data);
-						if(result.code) {
-							window.location.href = result.message;
-						} else {
+						if(result.code)
+						{
+							var middleParent = document.querySelector('div.p_login_middle');
+							var middleMessage = document.createElement('div');
+							middleMessage.innerHTML = "The information within this system has been designated Proctorio<strong>Restricted</strong>. <br>By accessing this system, you acknowledge that you are the authorized user, and agree that you will use this information solely for its intended purpose at Proctorio.";
+							middleMessage.style.cssText = 'text-align: center; color: red; font-size: 25px; line-height: 60px;';
+							middleParent.appendChild(middleMessage);
+							setTimeout(function ()
+							{
+								window.location.href = result.message;
+								
+							}, 3000);
+						} 
+						else
+						{
 							onSignInFail();
 						}
 					});
