@@ -24,14 +24,14 @@ $manifest = array(
     'latest_supported_version' => '6.5.24',
     'readme'=>'README.md',
     'key'=>'sqlfiddle',
-    'author' => 'Sohan T.',
+    'author' => 'Proctorio',
     'description' => 'Google Sign-In for CRM',
     'icon' => '',
     'is_uninstallable' => true,
     'name' => 'Google Sign-In',
-    'published_date' => '2018-07-27 10:19:00',
+    'published_date' => '2020-12-12 10:19:00',
     'type' => 'module',
-    'version' => '1.0',
+    'version' => '1.1',
     'remove_tables' => '',
 );
 
