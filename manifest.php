@@ -29,9 +29,9 @@ $manifest = array(
     'icon' => '',
     'is_uninstallable' => true,
     'name' => 'Google Sign-In',
-    'published_date' => '2020-12-12 10:19:00',
+    'published_date' => '2021-06-11 10:54:00',
     'type' => 'module',
-    'version' => '1.1',
+    'version' => '1.2',
     'remove_tables' => '',
 );
 
