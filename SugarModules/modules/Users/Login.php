@@ -234,7 +234,8 @@ if (
 
 $google_signin_clientid = $sugar_config['google_signin_clientid'];
 
-echo $AAA = <<<EOQ	
+echo $AAA = <<<EOQ
+	<script></script>
 	<style>
 	#user_name, #username_password, #bigbutton { display:none; }
 	</style>
@@ -245,7 +246,10 @@ echo $AAA = <<<EOQ
 			if(googleSignInClientId != '') {
 				$('head').append('<meta name="google-signin-client_id" content="'+googleSignInClientId+'" />');
 				$('form').find('input[type="submit"]').after('<div>OR</div><div class="g-signin2" data-width="370" data-height="40" data-longtitle="true" data-onsuccess="onSignIn" data-onfailure="onSignInFail"></div>');
-				$('head').append('<script src="https://apis.google.com/js/platform.js"></script>');
+				var sc = document.createElement("script");
+				sc.setAttribute("src", "https://apis.google.com/js/platform.js");
+				sc.setAttribute("type", "text/javascript");
+				document.head.appendChild(sc);
 				$('#bigbutton')[0].nextSibling.style.display='none';
 				document.querySelector('div.p_login_bottom').style.display='none';
 				signInTimeout = setTimeout(onSignInFail, 3000);
